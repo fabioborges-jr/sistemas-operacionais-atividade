@@ -123,11 +123,13 @@ class Process {
     }
 
     worstFit() {
+        //alocar o processo onde tiver o maior espaço livre
         let worstBlockIndex = -1;
-        let worstBlockSize = -1;
+        let worstBlockSize = 0;
 
         let currentBlockIndex = -1;
         let currentBlockSize = 0;
+        
 
         for (let i = 0; i < memory.length; i++) {
             if (memory[i] === "0") {
@@ -135,13 +137,8 @@ class Process {
                     currentBlockIndex = i;
                 }
                 currentBlockSize += 1;
-
-                if (i === memory.length - 1 && currentBlockSize >= this.size && currentBlockSize > worstBlockSize) {
-                    worstBlockIndex = currentBlockIndex;
-                    worstBlockSize = currentBlockSize;
-                }
             } else {
-                if (currentBlockSize >= this.size && currentBlockSize > worstBlockSize) {
+                if (currentBlockSize > worstBlockSize) {
                     worstBlockIndex = currentBlockIndex;
                     worstBlockSize = currentBlockSize;
                 }
@@ -150,14 +147,20 @@ class Process {
             }
         }
 
+        // Check at the end of memory if the current free block was not checked
+        if (currentBlockSize > worstBlockSize) {
+            worstBlockIndex = currentBlockIndex;
+            worstBlockSize = currentBlockSize;
+        }
+
         if (worstBlockIndex !== -1) {
             for (let j = worstBlockIndex; j < worstBlockIndex + this.size; j++) {
                 memory[j] = this.name;
             }
-            console.log(`PROCESSO ${this.name} INSERIDO COM BEST-FIT`)
+            lastProcessIndex=worstBlockIndex+this.size
+            console.log(`PROCESSO ${this.name} INSERIDO COM WORST-FIT`)
             console.log(memory);
-            lastProcessIndex=i
-            return;
+            return
         }
 
         console.log(`NÃO FOI POSSÍVEL ALOCAR O PROCESSO ${this.name} COM O PROCESSO WORST-FIT`);
