@@ -36,10 +36,10 @@ class Process {
                     for (let j = initialFreeBlockSpace; j < initialFreeBlockSpace + this.size; j++) {
                         memory[j] = this.name;
                     }
+                    lastProcessIndex=i
                     console.log(`PROCESSO ${this.name} INSERIDO COM FIRST-FIT`)
-                    lastProcessIndex=initialFreeBlockSpace + this.size
                     console.log(memory);
-                    return
+                    return;
                 }
             } else {
                 initialFreeBlockSpace = -1;
@@ -54,9 +54,9 @@ class Process {
         console.log(`ÚLTIMO PROCESSO INSERIDO FOI NO INDEX ${lastProcessIndex}`	)
         let countFreeBlock = 0;
 
-        for (let i = lastProcessIndex; i < memory.length; i++) {
+        for (let i = lastProcessIndex+1; i < memory.length; i++) {
             if (memory[i] === "0") {
-                countFreeBlock += 1;
+                countFreeBlock += 1
 
                 if (countFreeBlock >= this.size) {
                     for (let j = i - this.size + 1; j <= i; j++) {
@@ -64,13 +64,14 @@ class Process {
                     }
                     lastProcessIndex=i
                     console.log(`PROCESSO ${this.name} INSERIDO COM NEXT-FIT`)
-                    console.log(memory);
+                    console.log(memory)
                     return
                 }
             } else {
                 console.log(`NÃO FOI POSSÍVEL UTILIZAR O NEXT-FIT PARA O PROCESSO ${this.name}, PROCURANDO NO INÍCIO DA MEMÓRIA`);
-                this.firstFit();
-                countFreeBlock = 0;
+                this.firstFit()
+                countFreeBlock = 0
+                return
             }
         }
 
