@@ -1,6 +1,7 @@
 var memory: string[] = [];
 var nameProcess: number = 1;
 var lastProcessIndex:number=-1
+var processList: string[] = [];
 // Tamanho da memória na base 2
 const memorySize = Math.pow(2, 6);
 
@@ -38,8 +39,10 @@ class Process {
                         memory[j] = this.name;
                     }
                     lastProcessIndex=i
+
                     console.log(`PROCESSO ${this.name} INSERIDO COM FIRST-FIT`)
-                    console.log(memory);
+                    console.log(memory)
+                    processList.push(this.name)
                     return;
                 }
             } else {
@@ -66,6 +69,7 @@ class Process {
                     lastProcessIndex=i
                     console.log(`PROCESSO ${this.name} INSERIDO COM NEXT-FIT`)
                     console.log(memory)
+                    processList.push(this.name)
                     return
                 }
             } else {
@@ -114,6 +118,7 @@ class Process {
             lastProcessIndex=bestBlockIndex+this.size-1
             console.log(`PROCESSO ${this.name} INSERIDO COM BEST-FIT`)
             console.log(memory);
+            processList.push(this.name)
             return
         }
 
@@ -159,6 +164,7 @@ class Process {
             lastProcessIndex=worstBlockIndex+this.size-1
             console.log(`PROCESSO ${this.name} INSERIDO COM WORST-FIT`)
             console.log(memory);
+            processList.push(this.name)
             return
         }
 
@@ -171,70 +177,49 @@ function removeProcess(processName: string) {
     for (let i = 0; i < memory.length; i++) {
         if (memory[i] === processName) {
             memory[i] = "0";
+            processList = processList.filter((value) => value !== processName);
         }
     }
     console.log(`PROCESSO ${processName} REMOVIDO.`);
     console.log(memory);
 }
 
-// Exemplo de uso
-let process1 = new Process("P1");
-process1.apresentar();
-process1.firstFit();
+//Testes aleatórios infinitos com firstFit a cada 5 segundos
+setInterval(() => {
+    let process = new Process(`P${nameProcess}`);
+    process.apresentar();
+    process.firstFit();
+    nameProcess += 1;
+}, 5000);
 
-let process2 = new Process("P2");
-process2.apresentar();
-process2.nextFit();
+//Testes aleatórios infinitos com nextFit a cada 5 segundos
+setInterval(() => {
+    let process = new Process(`P${nameProcess}`);
+    process.apresentar();
+    process.nextFit();
+    nameProcess += 1;
+}, 5000);
 
-let process3 = new Process("P3");
-process3.apresentar();
-process3.bestFit();
+//Testes aleatórios infinitos com bestFit a cada 5 segundos
+setInterval(() => {
+    let process = new Process(`P${nameProcess}`);
+    process.apresentar();
+    process.bestFit();
+    nameProcess += 1;
+}, 5000);
 
-let process4 = new Process("P4");
-process4.apresentar();
-process4.worstFit();
+//Testes aleatórios infinitos com worstFit a cada 5 segundos
+setInterval(() => {
+    let process = new Process(`P${nameProcess}`);
+    process.apresentar();
+    process.worstFit();
+    nameProcess += 1;
+}, 5000);
 
-removeProcess("P3")
-
-let process5 = new Process("P5");
-process5.apresentar();
-process5.firstFit();
-
-removeProcess("P1")
-
-let process6 = new Process("P6");
-process6.apresentar();
-process6.nextFit();
-
-let process7 = new Process("P7");
-process7.apresentar();
-process7.bestFit();
-
-removeProcess("P2")
-
-let process8 = new Process("P8");
-process8.apresentar();
-process8.worstFit();
-
-removeProcess("P5")
-
-let process9 = new Process("P9");
-process9.apresentar();
-process9.firstFit();
-
-let process10 = new Process("P10");
-process10.apresentar();
-process10.nextFit();
-
-let process11 = new Process("P11");
-process11.apresentar();
-process11.bestFit();
-
-let process12 = new Process("P12");
-process12.apresentar();
-process12.worstFit();
-
-removeProcess("P6")
-
-
-
+//Testes para remover processos a cada 15 segundos
+setInterval(() => {
+    if (processList.length > 0) {
+        let processName = processList[Math.floor(Math.random() * processList.length)];
+        removeProcess(processName);
+    }
+}, 15000);
