@@ -1,9 +1,10 @@
 var memory: string[] = [];
 var nameProcess: number = 1;
 var lastProcessIndex:number=-1
-const memorySize = 2 * 2 * 2 * 2 * 2; // Define o tamanho da memória como 16
+// Tamanho da memória na base 2
+const memorySize = Math.pow(2, 6);
 
-// Fill memory with free spaces
+
 for (var i = 0; i < memorySize; i++) {
     memory[i] = "0";
 }
@@ -14,7 +15,7 @@ class Process {
 
     constructor(name: string) {
         this.name = name;
-        this.size = Math.round(Math.random() * (memorySize / 4)) + 1; // Tamanho do processo variando de 1 a 4
+        this.size = Math.round(Math.random() * (memorySize / 4)) + 1;
     }
 
     apresentar() {
@@ -101,7 +102,6 @@ class Process {
             }
         }
 
-        // Check at the end of memory if the current free block was not checked
         if (currentBlockSize >= this.size && currentBlockSize < bestBlockSize) {
             bestBlockIndex = currentBlockIndex;
             bestBlockSize = currentBlockSize;
@@ -111,10 +111,9 @@ class Process {
             for (let j = bestBlockIndex; j < bestBlockIndex + this.size; j++) {
                 memory[j] = this.name;
             }
-            lastProcessIndex=i
+            lastProcessIndex=bestBlockIndex+this.size-1
             console.log(`PROCESSO ${this.name} INSERIDO COM BEST-FIT`)
             console.log(memory);
-
             return
         }
 
@@ -138,7 +137,7 @@ class Process {
                 }
                 currentBlockSize += 1;
             } else {
-                if (currentBlockSize > worstBlockSize) {
+                if (currentBlockSize > worstBlockSize && currentBlockSize >= this.size) {
                     worstBlockIndex = currentBlockIndex;
                     worstBlockSize = currentBlockSize;
                 }
@@ -148,7 +147,7 @@ class Process {
         }
 
         // Check at the end of memory if the current free block was not checked
-        if (currentBlockSize > worstBlockSize) {
+        if (currentBlockSize > worstBlockSize && currentBlockSize >= this.size) {
             worstBlockIndex = currentBlockIndex;
             worstBlockSize = currentBlockSize;
         }
@@ -157,14 +156,14 @@ class Process {
             for (let j = worstBlockIndex; j < worstBlockIndex + this.size; j++) {
                 memory[j] = this.name;
             }
-            lastProcessIndex=worstBlockIndex+this.size
+            lastProcessIndex=worstBlockIndex+this.size-1
             console.log(`PROCESSO ${this.name} INSERIDO COM WORST-FIT`)
             console.log(memory);
             return
         }
 
         console.log(`NÃO FOI POSSÍVEL ALOCAR O PROCESSO ${this.name} COM O PROCESSO WORST-FIT`);
-        return; // Não foi possível alocar o processo
+        return
     }
 }
 
@@ -187,26 +186,21 @@ let process2 = new Process("P2");
 process2.apresentar();
 process2.nextFit();
 
-
-
 let process3 = new Process("P3");
 process3.apresentar();
 process3.bestFit();
 
-
 let process4 = new Process("P4");
 process4.apresentar();
 process4.worstFit();
+
 removeProcess("P3")
 
-// Faça mais testes
 let process5 = new Process("P5");
 process5.apresentar();
 process5.firstFit();
 
-//remover processo
 removeProcess("P1")
-
 
 let process6 = new Process("P6");
 process6.apresentar();
@@ -216,15 +210,14 @@ let process7 = new Process("P7");
 process7.apresentar();
 process7.bestFit();
 
-//remover processo
 removeProcess("P2")
 
 let process8 = new Process("P8");
 process8.apresentar();
 process8.worstFit();
+
 removeProcess("P5")
 
-//faça mais testes
 let process9 = new Process("P9");
 process9.apresentar();
 process9.firstFit();
@@ -240,6 +233,7 @@ process11.bestFit();
 let process12 = new Process("P12");
 process12.apresentar();
 process12.worstFit();
+
 removeProcess("P6")
 
 
