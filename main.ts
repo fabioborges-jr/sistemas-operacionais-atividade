@@ -2,9 +2,7 @@ var memory: string[] = [];
 var nameProcess: number = 1;
 var lastProcessIndex:number=-1
 var processList: string[] = [];
-// Tamanho da memória na base 2
 const memorySize = Math.pow(2, 6);
-
 
 for (var i = 0; i < memorySize; i++) {
     memory[i] = "0";
@@ -19,7 +17,7 @@ class Process {
         this.size = Math.round(Math.random() * (memorySize / 4)) + 1;
     }
 
-    apresentar() {
+    announce() {
         console.log(`PROCESSO ${this.name} CRIADO E SEU TAMANHO É DE ${this.size}`);
     }
 
@@ -184,42 +182,37 @@ function removeProcess(processName: string) {
     console.log(memory);
 }
 
-//Testes aleatórios infinitos com firstFit a cada 5 segundos
 setInterval(() => {
     let process = new Process(`P${nameProcess}`);
-    process.apresentar();
+    process.announce();
     process.firstFit();
     nameProcess += 1;
 }, 5000);
 
-//Testes aleatórios infinitos com nextFit a cada 5 segundos
 setInterval(() => {
     let process = new Process(`P${nameProcess}`);
-    process.apresentar();
+    process.announce();
     process.nextFit();
     nameProcess += 1;
 }, 5000);
 
-//Testes aleatórios infinitos com bestFit a cada 5 segundos
 setInterval(() => {
     let process = new Process(`P${nameProcess}`);
-    process.apresentar();
+    process.announce();
     process.bestFit();
     nameProcess += 1;
 }, 5000);
 
-//Testes aleatórios infinitos com worstFit a cada 5 segundos
 setInterval(() => {
     let process = new Process(`P${nameProcess}`);
-    process.apresentar();
+    process.announce();
     process.worstFit();
     nameProcess += 1;
 }, 5000);
 
-//Testes para remover processos a cada 15 segundos
 setInterval(() => {
     if (processList.length > 0) {
         let processName = processList[Math.floor(Math.random() * processList.length)];
         removeProcess(processName);
     }
-}, 15000);
+}, 5000);
