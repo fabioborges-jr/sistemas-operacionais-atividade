@@ -27,7 +27,7 @@ public class MemoryManagement {
         }
 
         void announce() {
-            System.out.println("PROCESSO " + this.name + " CRIADO E SEU TAMANHO É DE " + this.size);
+            System.out.println("PROCESSO " + this.name + " CRIADO E SEU TAMANHO E DE " + this.size);
         }
 
         void firstFit() {
@@ -58,11 +58,11 @@ public class MemoryManagement {
                 }
             }
 
-            System.out.println("NÃO FOI POSSÍVEL ALOCAR O PROCESSO " + this.name + " COM O MÉTODO FIRST-FIT");
+            System.out.println("NAO FOI POSSIVEL ALOCAR O PROCESSO " + this.name + " COM O METODO FIRST-FIT");
         }
 
         void nextFit() {
-            System.out.println("ÚLTIMO PROCESSO INSERIDO FOI NO INDEX " + lastProcessIndex);
+            System.out.println("ULTIMO PROCESSO INSERIDO FOI NO INDEX " + lastProcessIndex);
             int countFreeBlock = 0;
 
             for (int i = lastProcessIndex + 1; i < memory.length; i++) {
@@ -80,14 +80,14 @@ public class MemoryManagement {
                         return;
                     }
                 } else {
-                    System.out.println("NÃO FOI POSSÍVEL UTILIZAR O NEXT-FIT PARA O PROCESSO " + this.name + ", PROCURANDO NO INÍCIO DA MEMÓRIA");
+                    System.out.println("NAO FOI POSSIVEL UTILIZAR O NEXT-FIT PARA O PROCESSO " + this.name + ", PROCURANDO NO INICIO DA MEMÓRIA");
                     this.firstFit();
                     countFreeBlock = 0;
                     return;
                 }
             }
 
-            System.out.println("NÃO FOI POSSÍVEL ALOCAR O PROCESSO " + this.name + " COM O PROCESSO NEXT-FIT");
+            System.out.println("NAO FOI POSSIVEL ALOCAR O PROCESSO " + this.name + " COM O PROCESSO NEXT-FIT");
         }
 
         void bestFit() {
@@ -129,7 +129,7 @@ public class MemoryManagement {
                 return;
             }
 
-            System.out.println("NÃO FOI POSSÍVEL ALOCAR O PROCESSO " + this.name + " COM O PROCESSO BEST-FIT");
+            System.out.println("NAO FOI POSSIVEL ALOCAR O PROCESSO " + this.name + " COM O PROCESSO BEST-FIT");
         }
 
         void worstFit() {
@@ -171,7 +171,7 @@ public class MemoryManagement {
                 return;
             }
 
-            System.out.println("NÃO FOI POSSÍVEL ALOCAR O PROCESSO " + this.name + " COM O PROCESSO WORST-FIT");
+            System.out.println("NAO FOI POSSIVEL ALOCAR O PROCESSO " + this.name + " COM O PROCESSO WORST-FIT");
         }
     }
 

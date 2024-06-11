@@ -18,7 +18,7 @@ class Process {
     }
 
     announce() {
-        console.log(`PROCESSO ${this.name} CRIADO E SEU TAMANHO É DE ${this.size}`);
+        console.log(`PROCESSO ${this.name} CRIADO E SEU TAMANHO E DE ${this.size}`);
     }
 
     firstFit() {
@@ -49,11 +49,11 @@ class Process {
             }
         }
 
-        console.log(`NÃO FOI POSSÍVEL ALOCAR O PROCESSO ${this.name} COM O MÉTODO FIRST-FIT`);
+        console.log(`NAO FOI POSSIVEL ALOCAR O PROCESSO ${this.name} COM O METODO FIRST-FIT`);
     }
 
     nextFit() {
-        console.log(`ÚLTIMO PROCESSO INSERIDO FOI NO INDEX ${lastProcessIndex}`	)
+        console.log(`ULTIMO PROCESSO INSERIDO FOI NO INDEX ${lastProcessIndex}`	)
         let countFreeBlock = 0;
 
         for (let i = lastProcessIndex+1; i < memory.length; i++) {
@@ -71,14 +71,14 @@ class Process {
                     return
                 }
             } else {
-                console.log(`NÃO FOI POSSÍVEL UTILIZAR O NEXT-FIT PARA O PROCESSO ${this.name}, PROCURANDO NO INÍCIO DA MEMÓRIA`);
+                console.log(`NAO FOI POSSIVEL UTILIZAR O NEXT-FIT PARA O PROCESSO ${this.name}, PROCURANDO NO INICIO DA MEMÓRIA`);
                 this.firstFit()
                 countFreeBlock = 0
                 return
             }
         }
 
-        console.log(`NÃO FOI POSSÍVEL ALOCAR O PROCESSO ${this.name} COM O PROCESSO NEXT-FIT`);
+        console.log(`NAO FOI POSSIVEL ALOCAR O PROCESSO ${this.name} COM O PROCESSO NEXT-FIT`);
     }
 
     bestFit() {
@@ -120,8 +120,8 @@ class Process {
             return
         }
 
-        console.log(`NÃO FOI POSSÍVEL ALOCAR O PROCESSO ${this.name} COM O PROCESSO BEST-FIT`);
-        return; // Não foi possível alocar o processo
+        console.log(`NAO FOI POSSIVEL ALOCAR O PROCESSO ${this.name} COM O PROCESSO BEST-FIT`);
+        return; // NAO FOI POSSIVEL alocar o processo
     }
 
     worstFit() {
@@ -166,7 +166,7 @@ class Process {
             return
         }
 
-        console.log(`NÃO FOI POSSÍVEL ALOCAR O PROCESSO ${this.name} COM O PROCESSO WORST-FIT`);
+        console.log(`NAO FOI POSSIVEL ALOCAR O PROCESSO ${this.name} COM O PROCESSO WORST-FIT`);
         return
     }
 }
